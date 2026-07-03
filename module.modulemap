@@ -1,0 +1,4 @@
+module ESP_ADC [system] {
+    umbrella header "src/adc.h"
+    export *
+}
