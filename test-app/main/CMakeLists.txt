@@ -25,7 +25,7 @@ idf_component_register(
         "main.swift"
         "TestADC.swift"
     INCLUDE_DIRS "."
-    REQUIRES esp-swift-adc esp-swift-platform esp-swift-support
+    REQUIRES esp-swift-adc
 )
 
 swift_configure(
