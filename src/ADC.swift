@@ -64,12 +64,12 @@ public struct AdcUnit: ~Copyable {
     ///   - bitwidth: Conversion resolution (default: `ADC_BITWIDTH_DEFAULT`).
     ///
     /// - Returns: A `Channel` bound to this unit.
-    /// - Throws: `Error` if channel configuration fails.
+    /// - Throws: `PlatformError` if channel configuration fails.
     public func addChannel(
         channel: adc_channel_t,
         atten: adc_atten_t = ADC_ATTEN_DB_12,
         bitwidth: adc_bitwidth_t = ADC_BITWIDTH_DEFAULT
-    ) throws(Error) -> Channel {
+    ) throws(PlatformError) -> Channel {
         var cfg = adc_oneshot_chan_cfg_t(atten: atten, bitwidth: bitwidth)
         try adc_oneshot_config_channel(handle, channel, &cfg)
             .throwEspError {
@@ -104,8 +104,8 @@ public struct AdcUnit: ~Copyable {
         /// Read the raw ADC conversion result.
         ///
         /// - Returns: Raw sample in `[0, 2^bitwidth - 1]`.
-        /// - Throws: `Error` on timeout or invalid state.
-        public func readRaw() throws(Error) -> Int32 {
+        /// - Throws: `PlatformError` on timeout or invalid state.
+        public func readRaw() throws(PlatformError) -> Int32 {
             var raw: Int32 = 0
             try adc_oneshot_read(unitHandle, channel, &raw)
                 .throwEspError {
@@ -117,11 +117,11 @@ public struct AdcUnit: ~Copyable {
         /// Read the calibrated voltage in millivolts.
         ///
         /// - Returns: Voltage in mV.
-        /// - Throws: `Error.espError(ESP_ERR_NOT_SUPPORTED)` if no calibration
-        ///   scheme is available on this SoC, or `Error` on read/conversion failure.
-        public func readVoltage() throws(Error) -> Int32 {
+        /// - Throws: `PlatformError.espError(ESP_ERR_NOT_SUPPORTED)` if no calibration
+        ///   scheme is available on this SoC, or `PlatformError` on read/conversion failure.
+        public func readVoltage() throws(PlatformError) -> Int32 {
             guard let caliHandle else {
-                throw Error.espError(ESP_ERR_NOT_SUPPORTED)
+                throw PlatformError.espError(ESP_ERR_NOT_SUPPORTED)
             }
             let raw = try readRaw()
             var voltage: Int32 = 0
