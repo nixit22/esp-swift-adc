@@ -8,9 +8,9 @@ Depends on: `SwiftPlatform`, `SwiftSupport`, `esp_adc`
 
 | File | Role |
 |---|---|
-| `src/ADC.swift` | `AdcUnit` and `AdcUnit.Channel` — public Swift API |
-| `src/adc.c` / `src/adc.h` | C glue: calibration scheme factory and delete helpers |
-| `module.modulemap` | Clang module `ESP_ADC` — umbrella over `src/adc.h` |
+| `Sources/ADC/ADC.swift` | `AdcUnit` and `AdcUnit.Channel` — public Swift API |
+| `Sources/ESP_ADC/adc.c` / `Sources/ESP_ADC/include/ESP_ADC.h` | C glue: calibration scheme factory and delete helpers |
+| `Package.swift` | SwiftPM package: C target `ESP_ADC` (module map generated from `include/ESP_ADC.h`, the former `ESP_ADC.h`) and Swift target `ADC` |
 
 ## Public API
 

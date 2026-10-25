@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-#include "adc.h"
+#include "ESP_ADC.h"
 
 adc_cali_handle_t adc_cali_create_best(
     adc_unit_t unit,

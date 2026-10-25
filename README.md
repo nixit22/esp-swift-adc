@@ -4,6 +4,24 @@ Swift ADC oneshot driver wrapping ESP-IDF's `esp_adc`. Exposes `AdcUnit` and `Ad
 
 Depends on: `SwiftPlatform`, `SwiftSupport`, `esp_adc`.
 
+## Adding it to a project
+
+This is a [SwiftPM](https://www.swift.org/package-manager/) package, built for ESP-IDF by
+`swift_package()` from [esp-swift-support](https://github.com/nixit22/esp-swift-support). In your
+app's `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/nixit22/esp-swift-adc.git", branch: "SPM"),
+],
+targets: [
+    .target(name: "App", dependencies: [.product(name: "ADC", package: "esp-swift-adc")]),
+]
+```
+
+See esp-swift-support's README for the project setup (top-level `CMakeLists.txt`, `main`
+component, Swift toolchain).
+
 ## Usage
 
 ```swift
